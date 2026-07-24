@@ -7,7 +7,8 @@ import { marked } from "marked";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const postsDirectory = path.join(root, "content", "posts");
 const outputDirectories = [path.join(root, "public")];
-const siteUrl = "https://juice-notes.yellow-coin-6347.chatgpt.site";
+const defaultSiteUrl = "https://juice-notes.yellow-coin-6347.chatgpt.site";
+const siteUrl = (process.env.SITE_URL || defaultSiteUrl).replace(/\/+$/, "");
 
 const escapeHtml = (value = "") =>
   String(value)

@@ -53,3 +53,20 @@ public/about/             生成的关于页面
 ```
 
 站点保留轻量的 vinext 外壳用于 Sites 托管；访客实际阅读的是 `public/` 中生成的多页面 HTML。
+
+## GitHub Pages
+
+项目已经包含 `.github/workflows/pages.yml`。推送到 GitHub 后：
+
+1. 打开仓库的 **Settings → Pages**。
+2. 将 **Source** 选择为 **GitHub Actions**。
+3. 推送到 `main`，或在 Actions 页面手动运行 `Deploy GitHub Pages`。
+
+工作流会安装依赖、运行 HTML 生成器，并把 `public/` 发布到 GitHub Pages。它会自动区分：
+
+- 用户站点：`https://<用户名>.github.io`
+- 项目站点：`https://<用户名>.github.io/<仓库名>`
+
+页面链接均为相对路径，因此项目站点部署在子目录时也能正常跳转。生成器通过 `SITE_URL` 接收最终域名，用于 canonical 和 Open Graph 地址；本地未设置时继续使用当前 Sites 地址。
+
+如果以后绑定自定义域名，需要同时在 GitHub Pages 设置中配置域名；只添加 `CNAME` 文件并不会自动完成域名配置。

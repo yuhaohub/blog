@@ -44,3 +44,13 @@ test("every Markdown post produces a linked HTML article", async () => {
     assert.match(archive, new RegExp(`href="${file.replace(".", "\\.")}"`));
   }
 });
+
+test("allows the deployment host to be supplied by GitHub Pages", async () => {
+  const generator = await readFile(
+    new URL("scripts/build-static.mjs", projectRoot),
+    "utf8",
+  );
+
+  assert.match(generator, /process\.env\.SITE_URL/);
+  assert.match(generator, /\.replace\(\/\\\/\+\$\/,\s*""\)/);
+});
