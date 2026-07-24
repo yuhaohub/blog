@@ -17,12 +17,12 @@ npm run generate
 
 生成后会得到：
 
-- `index.html`：首页
-- `articles/index.html`：文章列表
-- `articles/<slug>.html`：每篇文章的独立页面
-- `about/index.html`：关于页
+- `public/index.html`：首页
+- `public/articles/index.html`：文章列表
+- `public/articles/<slug>.html`：每篇文章的独立页面
+- `public/about/index.html`：关于页
 
-这些 HTML 会同时同步到 `public/`，供线上站点使用。
+本地可以直接打开 `public/index.html`。所有 HTML 都生成到 `public/`，不再维护第二套重复文件。
 
 ### 修改样式
 
@@ -44,13 +44,12 @@ npm test          # 验证页面数量、链接和文章输出
 ## 项目结构
 
 ```text
-content/posts/          Markdown 文章源文件
+content/posts/            Markdown 文章源文件
 scripts/build-static.mjs  HTML 生成器与公共模板
-app/globals.css         全站统一样式
-index.html              生成的首页
-articles/               生成的文章页面
-about/                  生成的关于页面
-public/                 部署时使用的静态文件
+app/globals.css           全站统一样式
+public/index.html         生成的首页
+public/articles/          生成的文章页面
+public/about/             生成的关于页面
 ```
 
-站点仍保留轻量的 vinext 外壳，用于 Sites 托管；访客实际阅读的是生成后的多页面 HTML。
+站点保留轻量的 vinext 外壳用于 Sites 托管；访客实际阅读的是 `public/` 中生成的多页面 HTML。

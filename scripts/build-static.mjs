@@ -6,7 +6,7 @@ import { marked } from "marked";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const postsDirectory = path.join(root, "content", "posts");
-const outputDirectories = [root, path.join(root, "public")];
+const outputDirectories = [path.join(root, "public")];
 const siteUrl = "https://juice-notes.yellow-coin-6347.chatgpt.site";
 
 const escapeHtml = (value = "") =>
@@ -245,8 +245,7 @@ async function writeGenerated(relativePath, content) {
 
 async function build() {
   const posts = await loadPosts();
-  const css = (await readFile(path.join(root, "app", "globals.css"), "utf8"))
-    .replace(/^@import "tailwindcss";\s*/, "");
+  const css = await readFile(path.join(root, "app", "globals.css"), "utf8");
 
   for (const directory of outputDirectories) {
     await rm(path.join(directory, "articles"), { recursive: true, force: true });

@@ -2,14 +2,15 @@ import assert from "node:assert/strict";
 import { readFile, readdir } from "node:fs/promises";
 import test from "node:test";
 
-const root = new URL("../", import.meta.url);
+const projectRoot = new URL("../", import.meta.url);
+const outputRoot = new URL("../public/", import.meta.url);
 
 test("generates a real multi-page HTML blog", async () => {
   const [home, archive, about, files] = await Promise.all([
-    readFile(new URL("index.html", root), "utf8"),
-    readFile(new URL("articles/index.html", root), "utf8"),
-    readFile(new URL("about/index.html", root), "utf8"),
-    readdir(new URL("articles/", root)),
+    readFile(new URL("index.html", outputRoot), "utf8"),
+    readFile(new URL("articles/index.html", outputRoot), "utf8"),
+    readFile(new URL("about/index.html", outputRoot), "utf8"),
+    readdir(new URL("articles/", outputRoot)),
   ]);
 
   assert.match(home, /^<!doctype html>/i);
@@ -28,16 +29,16 @@ test("generates a real multi-page HTML blog", async () => {
 
 test("every Markdown post produces a linked HTML article", async () => {
   const [markdownFiles, articleFiles, archive] = await Promise.all([
-    readdir(new URL("content/posts/", root)),
-    readdir(new URL("articles/", root)),
-    readFile(new URL("articles/index.html", root), "utf8"),
+    readdir(new URL("content/posts/", projectRoot)),
+    readdir(new URL("articles/", outputRoot)),
+    readFile(new URL("articles/index.html", outputRoot), "utf8"),
   ]);
 
   const postPages = articleFiles.filter((file) => file !== "index.html");
   assert.equal(postPages.length, markdownFiles.length);
 
   for (const file of postPages) {
-    const html = await readFile(new URL(`articles/${file}`, root), "utf8");
+    const html = await readFile(new URL(`articles/${file}`, outputRoot), "utf8");
     assert.match(html, /^<!doctype html>/i);
     assert.match(html, /class="prose"/);
     assert.match(archive, new RegExp(`href="${file.replace(".", "\\.")}"`));
