@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
+import siteConfig from "@/lib/site-config.json";
 import "./globals.css";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -15,11 +16,11 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     metadataBase,
-    title: "JUICE. — 把复杂问题，写成清晰答案",
-    description: "Juice 的个人博客，记录工程、AI 与持续成长。",
+    title: siteConfig.title,
+    description: siteConfig.description,
     openGraph: {
-      title: "JUICE. — 把复杂问题，写成清晰答案",
-      description: "关于工程、AI 与持续成长的个人记录。",
+      title: siteConfig.title,
+      description: siteConfig.ogDescription,
       type: "website",
       locale: "zh_CN",
       images: [
@@ -33,8 +34,8 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: "JUICE. — 把复杂问题，写成清晰答案",
-      description: "关于工程、AI 与持续成长的个人记录。",
+      title: siteConfig.title,
+      description: siteConfig.ogDescription,
       images: ["/og.png"],
     },
   };

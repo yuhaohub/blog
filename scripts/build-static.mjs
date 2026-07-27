@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import matter from "gray-matter";
 import { marked } from "marked";
+import siteConfig from "../lib/site-config.json" with { type: "json" };
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const postsDirectory = path.join(root, "content", "posts");
@@ -161,8 +162,8 @@ function hero() {
 function homePage(posts) {
   const cards = posts.slice(0, 3).map((post, index) => postCard(post, 0, index + 1)).join("\n");
   return layout({
-    title: "JUICE. — 把复杂问题，写成清晰答案",
-    description: "Juice 的个人博客，记录工程、AI 与持续成长。",
+    title: siteConfig.title,
+    description: siteConfig.description,
     active: "home",
     depth: 0,
     canonicalPath: "/index.html",
