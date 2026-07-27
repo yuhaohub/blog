@@ -987,6 +987,12 @@ a:focus-visible {
   font-weight: 750;
 }
 
+.giscus-comments {
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+}
+
 @media (max-width: 760px) {
   .page-intro,
   .article-grid,
