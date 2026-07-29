@@ -15,6 +15,20 @@
 npm run generate
 ```
 
+### D2 图表
+
+文章支持在构建阶段把 `d2` 代码块转换为内联 SVG：
+
+````markdown
+```d2 博客发布流程
+Markdown -> 构建器 -> HTML -> GitHub Pages
+```
+````
+
+`d2` 后面的文字可省略；填写时会显示为图注，并作为图表的无障碍名称。图表使用 ELK 自动布局和 Orange Creamsicle 主题，生成后的页面不依赖浏览器脚本或外部渲染服务。
+
+只有文章包含 D2 图表时，本地生成才要求安装 D2。安装方式参见 [D2 官方文档](https://d2lang.com/tour/install/)，也可以通过 `D2_BIN` 环境变量指定可执行文件。GitHub Pages 工作流会自动安装并校验固定版本。
+
 生成后会得到：
 
 - `public/index.html`：首页

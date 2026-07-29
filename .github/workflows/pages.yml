@@ -41,6 +41,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install D2
+        shell: bash
+        run: |
+          archive="${RUNNER_TEMP}/d2-v0.7.1-linux-amd64.tar.gz"
+          curl -fL -o "${archive}" "https://github.com/terrastruct/d2/releases/download/v0.7.1/d2-v0.7.1-linux-amd64.tar.gz"
+          echo "eb172adf59f38d1e5a70ab177591356754ffaf9bebb84e0ca8b767dfb421dad7  ${archive}" | sha256sum -c -
+          tar -xzf "${archive}" -C "${RUNNER_TEMP}"
+          echo "${RUNNER_TEMP}/d2-v0.7.1/bin" >> "${GITHUB_PATH}"
+
       - name: Generate HTML
         run: npm run generate
 

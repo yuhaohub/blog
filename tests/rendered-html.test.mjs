@@ -73,3 +73,54 @@ test("safely falls back to plain text for unknown code languages", async () => {
   assert.match(html, /class="hljs language-made-up"/);
   assert.match(html, /&lt;unsafe&gt;/);
 });
+
+test("renders D2 fences as responsive inline SVG diagrams", async () => {
+  const html = await renderMarkdown(
+    "```d2 博客发布流程\nMarkdown -> HTML -> Pages\n```",
+    {
+      renderD2: async (source) =>
+        `<svg viewBox="0 0 100 50">
+  <style><![CDATA[
+    .node { fill: #fff; }
+  ]]></style>
+  <text class="node">${source}</text>
+</svg>`,
+    },
+  );
+
+  assert.match(html, /<figure class="d2-diagram" aria-label="博客发布流程">/);
+  assert.match(html, /<div class="d2-diagram-canvas"><svg/);
+  assert.match(html, /<figcaption>博客发布流程<\/figcaption>/);
+  assert.match(html, /<style><!\[CDATA\[/);
+  assert.match(html, /<text class="node">Markdown -> HTML -> Pages<\/text>/);
+  assert.doesNotMatch(html, /<pre><code class="hljs language-d2"/);
+  assert.doesNotMatch(html, /data-d2-placeholder/);
+});
+
+test("does not invoke D2 when an article has no D2 fence", async () => {
+  const html = await renderMarkdown("普通文章内容。", {
+    renderD2: async () => {
+      throw new Error("不应调用 D2");
+    },
+  });
+
+  assert.match(html, /<p>普通文章内容。<\/p>/);
+});
+
+test("gives repeated D2 diagrams distinct deterministic SVG salts", async () => {
+  const salts = [];
+  const html = await renderMarkdown(
+    "```d2\na -> b\n```\n\n```d2\na -> b\n```",
+    {
+      renderD2: async (_source, options) => {
+        salts.push(options.salt);
+        return `<svg data-salt="${options.salt}"></svg>`;
+      },
+    },
+  );
+
+  assert.equal(salts.length, 2);
+  assert.notEqual(salts[0], salts[1]);
+  assert.match(html, new RegExp(`data-salt="${salts[0]}"`));
+  assert.match(html, new RegExp(`data-salt="${salts[1]}"`));
+});
