@@ -2,7 +2,7 @@ import { readFile, readdir, mkdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import matter from "gray-matter";
-import { marked } from "marked";
+import { renderMarkdown } from "../lib/render-markdown.mjs";
 import siteConfig from "../lib/site-config.json" with { type: "json" };
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -51,7 +51,7 @@ async function loadPosts() {
       return {
         ...data,
         sourceFile: file,
-        html: await marked.parse(content, { gfm: true }),
+        html: await renderMarkdown(content),
       };
     }),
   );

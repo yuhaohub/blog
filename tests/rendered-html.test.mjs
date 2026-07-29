@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile, readdir } from "node:fs/promises";
 import test from "node:test";
+import { renderMarkdown } from "../lib/render-markdown.mjs";
 
 const projectRoot = new URL("../", import.meta.url);
 const outputRoot = new URL("../public/", import.meta.url);
@@ -53,4 +54,22 @@ test("allows the deployment host to be supplied by GitHub Pages", async () => {
 
   assert.match(generator, /process\.env\.SITE_URL/);
   assert.match(generator, /\.replace\(\/\\\/\+\$\/,\s*""\)/);
+});
+
+test("renders fenced and inline code with syntax highlighting", async () => {
+  const html = await renderMarkdown(
+    "使用 `const` 声明变量。\n\n```js\nconst answer = 42;\n```",
+  );
+
+  assert.match(html, /<code>const<\/code>/);
+  assert.match(html, /class="hljs language-js"/);
+  assert.match(html, /hljs-keyword/);
+  assert.match(html, /hljs-number/);
+});
+
+test("safely falls back to plain text for unknown code languages", async () => {
+  const html = await renderMarkdown("```made-up\n<unsafe>\n```");
+
+  assert.match(html, /class="hljs language-made-up"/);
+  assert.match(html, /&lt;unsafe&gt;/);
 });

@@ -943,6 +943,107 @@ a:focus-visible {
   color: var(--ink);
 }
 
+.prose :not(pre) > code {
+  padding: 0.16em 0.42em;
+  border: 1px solid rgba(217, 83, 39, 0.2);
+  border-radius: 5px;
+  background: rgba(239, 107, 58, 0.08);
+  color: var(--orange-dark);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.88em;
+  overflow-wrap: anywhere;
+}
+
+.prose pre {
+  position: relative;
+  margin: 32px 0;
+  overflow-x: auto;
+  border: 1px solid #403d37;
+  border-radius: 14px;
+  background: #252521;
+  box-shadow: 0 14px 30px rgba(41, 39, 34, 0.13);
+  color: #e8e1d5;
+  line-height: 1.7;
+  tab-size: 2;
+  -webkit-overflow-scrolling: touch;
+}
+
+.prose pre::before {
+  content: "";
+  display: block;
+  height: 37px;
+  border-bottom: 1px solid #403d37;
+  background:
+    radial-gradient(circle at 19px 18px, #ef6b3a 0 4px, transparent 4.5px),
+    radial-gradient(circle at 35px 18px, #f5c65d 0 4px, transparent 4.5px),
+    radial-gradient(circle at 51px 18px, #77856d 0 4px, transparent 4.5px);
+}
+
+.prose pre code {
+  display: block;
+  min-width: max-content;
+  padding: 22px 24px 24px;
+  background: transparent;
+  color: inherit;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 14px;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #96938b;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-section,
+.hljs-link {
+  color: #f08a62;
+}
+
+.hljs-string,
+.hljs-title,
+.hljs-name,
+.hljs-type,
+.hljs-attribute,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition,
+.hljs-variable,
+.hljs-template-tag,
+.hljs-template-variable {
+  color: #f4c96f;
+}
+
+.hljs-number,
+.hljs-meta,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-params {
+  color: #aebc9f;
+}
+
+.hljs-attr,
+.hljs-property,
+.hljs-selector-id,
+.hljs-selector-class {
+  color: #e9a98c;
+}
+
+.hljs-deletion {
+  color: #ff927d;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: 800;
+}
+
 .prose ul,
 .prose ol {
   margin: 24px 0;
@@ -1016,6 +1117,16 @@ a:focus-visible {
   .article-grid {
     gap: 38px;
     padding-block: 45px 76px;
+  }
+
+  .prose pre {
+    margin-inline: -9px;
+    border-radius: 10px;
+  }
+
+  .prose pre code {
+    padding: 19px 18px 21px;
+    font-size: 13px;
   }
 
   .about-page {
