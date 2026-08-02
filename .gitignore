@@ -41,5 +41,10 @@ next-env.d.ts
 /outputs/
 /work/
 
+# generated article pages (created by `npm run generate`)
+/public/index.html
+/public/about/index.html
+/public/articles/*.html
+
 # ai
 .workbuddy
