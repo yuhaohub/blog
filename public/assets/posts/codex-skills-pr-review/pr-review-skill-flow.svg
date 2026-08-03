@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="430" viewBox="0 0 1400 430" role="img" aria-labelledby="title desc">
+  <title id="title">PR 审查 Skill 的执行流程</title>
+  <desc id="desc">从用户要求审查当前 PR 开始，Codex 匹配 Skill 描述、读取完整说明、确定改动范围、读取相关上下文、验证证据，最后输出按严重程度排序的 Findings。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d1702f"/>
+    </marker>
+  </defs>
+  <rect width="1400" height="430" rx="28" fill="#fffaf3"/>
+  <text x="62" y="70" fill="#7c2d12" font-family="system-ui, sans-serif" font-size="28" font-weight="700">一次 PR 审查如何调用 Skill</text>
+  <text x="62" y="106" fill="#6b625a" font-family="system-ui, sans-serif" font-size="18">先匹配，再加载；先调查，再报告</text>
+
+  <g font-family="system-ui, sans-serif">
+    <g transform="translate(45 165)">
+      <circle cx="70" cy="70" r="52" fill="#ffedd5" stroke="#fdba74" stroke-width="2"/>
+      <text x="70" y="66" text-anchor="middle" fill="#9a3412" font-size="19" font-weight="700">审查</text>
+      <text x="70" y="92" text-anchor="middle" fill="#9a3412" font-size="19" font-weight="700">当前 PR</text>
+    </g>
+    <g transform="translate(235 165)">
+      <circle cx="70" cy="70" r="52" fill="#ffffff" stroke="#f1c9a9" stroke-width="2"/>
+      <text x="70" y="66" text-anchor="middle" fill="#7c2d12" font-size="18" font-weight="700">匹配名称</text>
+      <text x="70" y="91" text-anchor="middle" fill="#7c2d12" font-size="18" font-weight="700">与描述</text>
+    </g>
+    <g transform="translate(425 165)">
+      <circle cx="70" cy="70" r="52" fill="#ffffff" stroke="#f1c9a9" stroke-width="2"/>
+      <text x="70" y="66" text-anchor="middle" fill="#7c2d12" font-size="18" font-weight="700">读取完整</text>
+      <text x="70" y="91" text-anchor="middle" fill="#7c2d12" font-size="18" font-weight="700">SKILL.md</text>
+    </g>
+    <g transform="translate(615 165)">
+      <circle cx="70" cy="70" r="52" fill="#f97316"/>
+      <text x="70" y="66" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="700">确定 diff</text>
+      <text x="70" y="91" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="700">审查范围</text>
+    </g>
+    <g transform="translate(805 165)">
+      <circle cx="70" cy="70" r="52" fill="#f97316"/>
+      <text x="70" y="55" text-anchor="middle" fill="#ffffff" font-size="17" font-weight="700">读取路由</text>
+      <text x="70" y="80" text-anchor="middle" fill="#ffffff" font-size="17" font-weight="700">业务层</text>
+      <text x="70" y="105" text-anchor="middle" fill="#ffffff" font-size="17" font-weight="700">与测试</text>
+    </g>
+    <g transform="translate(995 165)">
+      <circle cx="70" cy="70" r="52" fill="#f97316"/>
+      <text x="70" y="66" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="700">运行测试</text>
+      <text x="70" y="91" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="700">核验证据</text>
+    </g>
+    <g transform="translate(1185 165)">
+      <circle cx="70" cy="70" r="52" fill="#ffedd5" stroke="#fdba74" stroke-width="2"/>
+      <text x="70" y="66" text-anchor="middle" fill="#9a3412" font-size="18" font-weight="700">输出排序</text>
+      <text x="70" y="91" text-anchor="middle" fill="#9a3412" font-size="18" font-weight="700">Findings</text>
+    </g>
+  </g>
+
+  <g fill="none" stroke="#d1702f" stroke-width="3" marker-end="url(#arrow)">
+    <path d="M167 235 L225 235"/>
+    <path d="M357 235 L415 235"/>
+    <path d="M547 235 L605 235"/>
+    <path d="M737 235 L795 235"/>
+    <path d="M927 235 L985 235"/>
+    <path d="M1117 235 L1175 235"/>
+  </g>
+
+  <path d="M685 325 L1065 325" stroke="#f1c9a9" stroke-width="2"/>
+  <text x="875" y="362" text-anchor="middle" fill="#6b625a" font-family="system-ui, sans-serif" font-size="17">调查阶段：没有足够证据，就继续阅读或不报告</text>
+</svg>

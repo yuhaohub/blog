@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">Codex 中几种约束方式的分工</title>
+  <desc id="desc">Prompt、AGENTS.md 与静态检查工具共同为 Skill 提供任务、项目约束和验证结果，Skill 最终产出带证据的审查结论。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 z" fill="#c66724"/>
+    </marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#7c2d12" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="620" rx="28" fill="#fffaf3"/>
+  <text x="70" y="72" fill="#7c2d12" font-family="system-ui, sans-serif" font-size="28" font-weight="700">不同工具，解决不同层次的问题</text>
+  <text x="70" y="108" fill="#6b625a" font-family="system-ui, sans-serif" font-size="18">Skill 组织工作流，而不是替代项目约束与确定性检查</text>
+
+  <g filter="url(#shadow)">
+    <rect x="70" y="155" width="280" height="110" rx="18" fill="#ffffff" stroke="#f1c9a9" stroke-width="2"/>
+    <rect x="70" y="305" width="280" height="110" rx="18" fill="#ffffff" stroke="#f1c9a9" stroke-width="2"/>
+    <rect x="70" y="455" width="280" height="110" rx="18" fill="#ffffff" stroke="#f1c9a9" stroke-width="2"/>
+    <rect x="480" y="250" width="280" height="200" rx="22" fill="#f97316"/>
+    <rect x="890" y="295" width="240" height="110" rx="18" fill="#ffffff" stroke="#f1c9a9" stroke-width="2"/>
+  </g>
+
+  <text x="105" y="198" fill="#9a3412" font-family="system-ui, sans-serif" font-size="23" font-weight="700">Prompt</text>
+  <text x="105" y="232" fill="#554b43" font-family="system-ui, sans-serif" font-size="18">这一次要做什么</text>
+  <text x="105" y="348" fill="#9a3412" font-family="system-ui, sans-serif" font-size="23" font-weight="700">AGENTS.md</text>
+  <text x="105" y="382" fill="#554b43" font-family="system-ui, sans-serif" font-size="18">这个仓库长期遵守什么</text>
+  <text x="105" y="498" fill="#9a3412" font-family="system-ui, sans-serif" font-size="23" font-weight="700">静态检查工具</text>
+  <text x="105" y="532" fill="#554b43" font-family="system-ui, sans-serif" font-size="18">哪些确定性规则必须通过</text>
+
+  <text x="620" y="320" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="34" font-weight="700">Skill</text>
+  <text x="620" y="360" text-anchor="middle" fill="#fff7ed" font-family="system-ui, sans-serif" font-size="19">读取上下文</text>
+  <text x="620" y="392" text-anchor="middle" fill="#fff7ed" font-family="system-ui, sans-serif" font-size="19">执行审查步骤</text>
+  <text x="620" y="424" text-anchor="middle" fill="#fff7ed" font-family="system-ui, sans-serif" font-size="19">统一输出标准</text>
+
+  <text x="1010" y="340" text-anchor="middle" fill="#9a3412" font-family="system-ui, sans-serif" font-size="23" font-weight="700">Review Findings</text>
+  <text x="1010" y="374" text-anchor="middle" fill="#554b43" font-family="system-ui, sans-serif" font-size="17">带证据的审查结论</text>
+
+  <path d="M350 210 C420 210 410 290 480 300" fill="none" stroke="#c66724" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M350 360 L470 360" fill="none" stroke="#c66724" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M350 510 C420 510 410 430 480 420" fill="none" stroke="#c66724" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M760 350 L880 350" fill="none" stroke="#c66724" stroke-width="3" marker-end="url(#arrow)"/>
+</svg>

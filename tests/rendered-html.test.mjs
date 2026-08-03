@@ -24,6 +24,7 @@ test("generates a real multi-page HTML blog", async () => {
     "ai-assistant-in-production.html",
     "arraylist-thread-safety.html",
     "baota-linux-project-deployment.html",
+    "codex-skills-pr-review.html",
     "distributed-transactions-seata.html",
     "foundation-architecture.html",
     "heavykeeper-topk.html",
