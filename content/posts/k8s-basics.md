@@ -26,7 +26,7 @@ readTime: 15 分钟
 - 存储编排：可以根据容器自身的需求自动创建存储卷
 ## 二、核心架构
 K8S 遵循主从架构（Master-Worker），理解各组件的职责是入门的关键：
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/3ed843e5dd9744b096c4ea3076d3a7f8.png)
+![在这里插入图片描述](../assets/posts/k8s-basics/k8s-01.png)
 
 - **Control Plane (Master 节点)**:
 
@@ -56,7 +56,7 @@ K8S 遵循主从架构（Master-Worker），理解各组件的职责是入门的
 准备三台服务器，一台用作Master，两台worker。Master节点推荐配置2核4G及以上，worker节点推荐配置2核2G及以上。
 ### 1、预备环境
 1. 为每台服务器安装上docker
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/057e6c9d03644c93b16cc57ab47ad25e.png)
+![在这里插入图片描述](../assets/posts/k8s-basics/k8s-02.png)
 2. 替换为国内镜像源加速下载
 ```shell
 sudo tee /etc/docker/daemon.json <<-'EOF'
@@ -87,7 +87,7 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 docker info
 ```
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/0a49fd60d2c44165b945b0c24384850b.png)
+![在这里插入图片描述](../assets/posts/k8s-basics/k8s-03.png)
 ### 2、安装3大件
 - kubeadm ： 用于集群管理
 - kubelet: 采集节点数据汇报给 master 用
@@ -127,7 +127,7 @@ yum install -y kubelet kubeadm kubectl
 systemctl enable kubelet && systemctl start kubelet
 ```
 查看K8S版本信息
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b4d42d13d3bc421199627a6540139054.png)
+![在这里插入图片描述](../assets/posts/k8s-basics/k8s-04.png)
 ### 3、初始化Matser节点
 先把域名及ip地址映射加入到hosts配置文件当中,**各子节点执行同样操作**，后续可以直接通过访问k8s-master互相通信。
 ```shell
@@ -138,7 +138,7 @@ sudo tee -a /etc/hosts << EOF
 EOF
 ```
 执行初始化前检查防火墙和swap是否关闭等，避免初始化错误
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a33900b5117a4a2495b9e58db5da6fac.png)
+![在这里插入图片描述](../assets/posts/k8s-basics/k8s-05.png)
 
 ```shell
 # 加载桥接内核模块
@@ -186,7 +186,7 @@ kubeadm init \
   --image-repository=registry.aliyuncs.com/google_containers
 ```
 初始化成功
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/3eded53789e147d4ac7147a76eefcbe4.png)
+![在这里插入图片描述](../assets/posts/k8s-basics/k8s-06.png)
 在Master节点执行命令
 ```shell
 mkdir -p $HOME/.kube
@@ -204,13 +204,13 @@ curl -LO https://raw.githubusercontent.com/coreos/flannel/master/Documentation/k
 kubectl apply -f kube-flannel.yml
 ```
 查看各组件状态
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/895df7a179764a96b0750feb5ae106ff.png)
+![在这里插入图片描述](../assets/posts/k8s-basics/k8s-07.png)
 ### 4、worker节点加入到集群
 ```shell
 kubeadm join k8s-master:6443 --token xxxxxxxxxxxxxxxxxxx \
 --discovery-token-ca-cert-hash xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/2ea69221361140cf95a7fa3fa6831222.png)
+![在这里插入图片描述](../assets/posts/k8s-basics/k8s-08.png)
 ### 5、环境搭建小结
 1. 首先需要准备三台服务器
 2. 安装预备环境docker
@@ -223,7 +223,7 @@ kubeadm join k8s-master:6443 --token xxxxxxxxxxxxxxxxxxx \
 ```shell
 kubectl create ns dev
 ```
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/e39ff94f7a184ea6b9dc9a44cc9781d4.png)
+![在这里插入图片描述](../assets/posts/k8s-basics/k8s-09.png)
 
 2）通过编写yaml文件创建
 ```shell
@@ -243,7 +243,7 @@ kubectl run mynginx --image=nginx
 # 查看创建过程的详细信息
 kubectl describe pod mynginx
 ```
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/8a7558b369434ad9a5aa02d42ef11427.png)
+![在这里插入图片描述](../assets/posts/k8s-basics/k8s-10.png)
 2) 配置文件
 ```yaml
 apiVersion: v1
@@ -263,7 +263,7 @@ spec:
 ```shell
 kubectl create deploy myapp --images=nginx --replica=3
 ```
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/877f1819648f45d89b9d35abc6ea6e15.png)
+![在这里插入图片描述](../assets/posts/k8s-basics/k8s-11.png)
 
 ```yaml
 apiVersion: apps/v1
@@ -333,12 +333,12 @@ Service的统一网关入口
 ## 六、遇到的问题
 ### 1、创建pod时发现存在一个节点网络错误
 #### 错误信息
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/3e854b14cf8f405192f6f969522ca15f.png)
+![在这里插入图片描述](../assets/posts/k8s-basics/k8s-12.png)
 查询网络创建在各节点运行状况，node2存在问题
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/c88314f2f9c7468f93bd595eb9092e31.png)
+![在这里插入图片描述](../assets/posts/k8s-basics/k8s-13.png)
 查看具体日志信息
 *br_netfilter 核心模块没有加载成功，或者相关的内核参数没有生效。Flannel 启动时会检查这个文件，如果找不到，它就会崩溃重启。*
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/594ad18048844fd587f9ff28d2f01011.png)
+![在这里插入图片描述](../assets/posts/k8s-basics/k8s-14.png)
 #### 修复
 ```shell
 # 加载内核模块
@@ -355,4 +355,4 @@ EOF
 sysctl --system
 ```
 再次查看插件日志，成功启动
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a8cc5d29c1f64bfdb54384cb84329d2a.png)
+![在这里插入图片描述](../assets/posts/k8s-basics/k8s-15.png)
