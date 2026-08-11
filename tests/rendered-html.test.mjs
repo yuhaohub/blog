@@ -21,9 +21,11 @@ test("generates a real multi-page HTML blog", async () => {
   assert.match(archive, /class="article-grid"/);
   assert.match(about, /你好，我是 Juice/);
   assert.deepEqual(files.sort(), [
+    "agent-context-engineering.html",
     "ai-assistant-in-production.html",
     "arraylist-thread-safety.html",
     "baota-linux-project-deployment.html",
+    "claude-code-architecture.html",
     "codex-skills-pr-review.html",
     "distributed-transactions-seata.html",
     "foundation-architecture.html",

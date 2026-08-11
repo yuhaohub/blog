@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
+  <title id="title">Claude Code 子 Agent 委派与结果回流</title>
+  <desc id="desc">主 Agent 通过 Agent 工具创建子 Agent，子 Agent 拥有独立上下文、工具和权限，完成后把摘要返回主 Agent。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#5c554d"/>
+    </marker>
+    <style>
+      .title { font: 600 30px 'PingFang SC','Microsoft YaHei',sans-serif; fill: #201f1b; }
+      .head { font: 600 20px 'PingFang SC','Microsoft YaHei',sans-serif; fill: #201f1b; }
+      .label { font: 600 17px 'PingFang SC','Microsoft YaHei',sans-serif; fill: #201f1b; }
+      .small { font: 400 14px 'PingFang SC','Microsoft YaHei',sans-serif; fill: #625b53; }
+      .tiny { font: 400 12px 'SFMono-Regular',Consolas,monospace; fill: #6f675e; }
+      .box { stroke: #d8cec2; stroke-width: 2; }
+      .arrow { stroke: #5c554d; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+      .dashed { stroke-dasharray: 8 7; }
+    </style>
+  </defs>
+  <rect width="1400" height="760" rx="24" fill="#fffaf2"/>
+  <text x="52" y="58" class="title">子 Agent 的关键不是“多一个模型”，而是“多一个隔离边界”</text>
+  <text x="52" y="88" class="small">主 Agent 委派工作，子 Agent 独立执行，最后只把决策所需的结果交回。</text>
+
+  <rect x="60" y="210" width="260" height="170" rx="20" fill="#eaf2f4" class="box"/>
+  <text x="190" y="254" text-anchor="middle" class="head">主 Agent</text>
+  <text x="190" y="285" text-anchor="middle" class="small">Query Loop</text>
+  <text x="190" y="312" text-anchor="middle" class="small">维护用户目标与主上下文</text>
+  <text x="190" y="340" text-anchor="middle" class="small">决定是否委派</text>
+  <text x="190" y="365" text-anchor="middle" class="tiny">query.ts</text>
+
+  <rect x="410" y="210" width="260" height="170" rx="20" fill="#f2ebfa" class="box"/>
+  <text x="540" y="254" text-anchor="middle" class="head">Agent Tool</text>
+  <text x="540" y="285" text-anchor="middle" class="small">读取 prompt / agent type</text>
+  <text x="540" y="312" text-anchor="middle" class="small">配置工具、权限、隔离方式</text>
+  <text x="540" y="340" text-anchor="middle" class="small">创建子执行上下文</text>
+  <text x="540" y="365" text-anchor="middle" class="tiny">tools/AgentTool.tsx</text>
+
+  <rect x="770" y="150" width="300" height="290" rx="22" fill="#edf5ed" class="box"/>
+  <text x="920" y="198" text-anchor="middle" class="head">子 Agent</text>
+  <text x="920" y="230" text-anchor="middle" class="small">BaseAgentDefinition</text>
+  <line x1="810" y1="252" x2="1030" y2="252" stroke="#d8cec2"/>
+  <text x="920" y="282" text-anchor="middle" class="small">独立 Context</text>
+  <text x="920" y="310" text-anchor="middle" class="small">独立工具集合</text>
+  <text x="920" y="338" text-anchor="middle" class="small">独立权限上下文</text>
+  <text x="920" y="366" text-anchor="middle" class="small">可选 worktree / background</text>
+  <text x="920" y="408" text-anchor="middle" class="tiny">components/agents/types.ts</text>
+
+  <rect x="1130" y="210" width="210" height="170" rx="20" fill="#f4efdf" class="box"/>
+  <text x="1235" y="254" text-anchor="middle" class="head">真实工作</text>
+  <text x="1235" y="285" text-anchor="middle" class="small">搜索、修改、测试</text>
+  <text x="1235" y="312" text-anchor="middle" class="small">大量中间结果</text>
+  <text x="1235" y="340" text-anchor="middle" class="small">独立工作区</text>
+
+  <path d="M320 295H400" class="arrow"/>
+  <text x="360" y="278" text-anchor="middle" class="tiny">Agent tool_use</text>
+  <path d="M670 295H760" class="arrow"/>
+  <text x="715" y="278" text-anchor="middle" class="tiny">runAgent()</text>
+  <path d="M1070 295H1120" class="arrow"/>
+  <path d="M1130 350C980 540 710 540 540 395" class="arrow dashed"/>
+  <text x="830" y="535" text-anchor="middle" class="small">子 Agent 只返回摘要 / Tool Result，主 Agent 继续自己的循环</text>
+  <path d="M410 350C300 480 210 480 190 395" class="arrow dashed"/>
+  <text x="290" y="505" text-anchor="middle" class="small">结果回到主 Context</text>
+
+  <rect x="160" y="600" width="1080" height="72" rx="16" fill="#fff" class="box"/>
+  <text x="700" y="630" text-anchor="middle" class="label">Context ≠ Session ≠ Agent</text>
+  <text x="700" y="654" text-anchor="middle" class="small">Context 是当前可见信息；Session 是可恢复记录；Agent 是拥有边界的执行单元。</text>
+</svg>

@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 720" role="img" aria-labelledby="title desc">
+  <title id="title">Claude Code 工具注册与授权流程</title>
+  <desc id="desc">展示工具从注册、筛选、合并到执行前权限判断和实际调用的过程。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#5c554d"/>
+    </marker>
+    <style>
+      .title { font: 600 30px 'PingFang SC','Microsoft YaHei',sans-serif; fill: #201f1b; }
+      .head { font: 600 18px 'PingFang SC','Microsoft YaHei',sans-serif; fill: #201f1b; }
+      .label { font: 600 17px 'PingFang SC','Microsoft YaHei',sans-serif; fill: #201f1b; }
+      .small { font: 400 14px 'PingFang SC','Microsoft YaHei',sans-serif; fill: #625b53; }
+      .tiny { font: 400 12px 'SFMono-Regular',Consolas,monospace; fill: #6f675e; }
+      .box { stroke: #d8cec2; stroke-width: 2; }
+      .arrow { stroke: #5c554d; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="1400" height="720" rx="24" fill="#fffaf2"/>
+  <text x="52" y="58" class="title">工具调用前后，其实有两次筛选</text>
+  <text x="52" y="88" class="small">第一次决定模型能看见什么，第二次决定这一次调用能不能真的执行。</text>
+
+  <text x="76" y="145" class="head">模型可见性：工具池组装</text>
+  <rect x="60" y="175" width="226" height="112" rx="16" fill="#fff0e7" class="box"/>
+  <text x="173" y="215" text-anchor="middle" class="label">getAllBaseTools()</text>
+  <text x="173" y="242" text-anchor="middle" class="small">内置工具、平台、Feature Flag</text>
+  <text x="173" y="266" text-anchor="middle" class="small">先得到候选集合</text>
+  <path d="M286 231H344" class="arrow"/>
+
+  <rect x="344" y="175" width="226" height="112" rx="16" fill="#eaf2f4" class="box"/>
+  <text x="457" y="215" text-anchor="middle" class="label">getTools()</text>
+  <text x="457" y="242" text-anchor="middle" class="small">Agent allowlist / denylist</text>
+  <text x="457" y="266" text-anchor="middle" class="small">权限预过滤</text>
+  <path d="M570 231H628" class="arrow"/>
+
+  <rect x="628" y="175" width="226" height="112" rx="16" fill="#f4efdf" class="box"/>
+  <text x="741" y="215" text-anchor="middle" class="label">assembleToolPool()</text>
+  <text x="741" y="242" text-anchor="middle" class="small">合并内置工具与 MCP</text>
+  <text x="741" y="266" text-anchor="middle" class="small">同名工具去重</text>
+  <path d="M854 231H912" class="arrow"/>
+
+  <rect x="912" y="175" width="226" height="112" rx="16" fill="#edf5ed" class="box"/>
+  <text x="1025" y="215" text-anchor="middle" class="label">getMergedTools()</text>
+  <text x="1025" y="242" text-anchor="middle" class="small">最终工具集合</text>
+  <text x="1025" y="266" text-anchor="middle" class="small">Zod → JSON Schema</text>
+  <path d="M1138 231H1196" class="arrow"/>
+
+  <rect x="1196" y="175" width="150" height="112" rx="16" fill="#eaf2f4" class="box"/>
+  <text x="1271" y="215" text-anchor="middle" class="label">模型</text>
+  <text x="1271" y="242" text-anchor="middle" class="small">看见工具</text>
+  <text x="1271" y="266" text-anchor="middle" class="small">返回 tool_use</text>
+
+  <path d="M1271 287V363" class="arrow"/>
+  <text x="1290" y="335" class="tiny">具体调用</text>
+
+  <text x="76" y="376" class="head">执行安全：单次调用授权</text>
+  <rect x="60" y="414" width="220" height="112" rx="16" fill="#fff" class="box"/>
+  <text x="170" y="454" text-anchor="middle" class="label">filterToolsByDenyRules</text>
+  <text x="170" y="481" text-anchor="middle" class="small">工具级 / MCP Server 级</text>
+  <text x="170" y="505" text-anchor="middle" class="small">拒绝优先</text>
+  <path d="M280 470H344" class="arrow"/>
+
+  <rect x="344" y="414" width="220" height="112" rx="16" fill="#f2ebfa" class="box"/>
+  <text x="454" y="454" text-anchor="middle" class="label">PreToolUse Hook</text>
+  <text x="454" y="481" text-anchor="middle" class="small">拦截、询问、修改参数</text>
+  <text x="454" y="505" text-anchor="middle" class="small">生命周期扩展点</text>
+  <path d="M564 470H628" class="arrow"/>
+
+  <rect x="628" y="414" width="220" height="112" rx="16" fill="#f4efdf" class="box"/>
+  <text x="738" y="454" text-anchor="middle" class="label">Permission Handler</text>
+  <text x="738" y="481" text-anchor="middle" class="small">allow / ask / deny</text>
+  <text x="738" y="505" text-anchor="middle" class="small">规则、模式、用户确认</text>
+  <path d="M848 470H912" class="arrow"/>
+
+  <rect x="912" y="414" width="220" height="112" rx="16" fill="#edf5ed" class="box"/>
+  <text x="1022" y="454" text-anchor="middle" class="label">Tool.call()</text>
+  <text x="1022" y="481" text-anchor="middle" class="small">执行文件 / Shell / MCP</text>
+  <text x="1022" y="505" text-anchor="middle" class="small">产生 Tool Result</text>
+  <path d="M1132 470H1196" class="arrow"/>
+
+  <rect x="1196" y="414" width="150" height="112" rx="16" fill="#eaf2f4" class="box"/>
+  <text x="1271" y="454" text-anchor="middle" class="label">下一轮</text>
+  <text x="1271" y="481" text-anchor="middle" class="small">结果回到</text>
+  <text x="1271" y="505" text-anchor="middle" class="small">queryLoop()</text>
+
+  <text x="60" y="606" class="tiny">工具接口还携带 isReadOnly、isConcurrencySafe、isDestructive、interruptBehavior 等执行元数据。</text>
+  <text x="60" y="632" class="tiny">因此“模型能看见”与“这次能执行”是两个不同的架构问题。</text>
+</svg>

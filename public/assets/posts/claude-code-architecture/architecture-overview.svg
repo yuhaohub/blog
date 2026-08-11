@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 760" role="img" aria-labelledby="title desc">
+  <title id="title">Claude Code 总体架构</title>
+  <desc id="desc">用户通过终端进入 Query Runtime，Runtime 连接模型、上下文管理、工具系统、权限控制和子 Agent。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#5c554d"/>
+    </marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#473b31" flood-opacity=".12"/>
+    </filter>
+    <style>
+      .title { font: 600 30px 'PingFang SC','Microsoft YaHei',sans-serif; fill: #201f1b; }
+      .subtitle { font: 400 16px 'PingFang SC','Microsoft YaHei',sans-serif; fill: #6f675e; }
+      .label { font: 600 20px 'PingFang SC','Microsoft YaHei',sans-serif; fill: #201f1b; }
+      .small { font: 400 15px 'PingFang SC','Microsoft YaHei',sans-serif; fill: #625b53; }
+      .tiny { font: 400 13px 'SFMono-Regular',Consolas,monospace; fill: #6f675e; }
+      .card { stroke: #d8cec2; stroke-width: 2; }
+      .arrow { stroke: #5c554d; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+      .dashed { stroke-dasharray: 8 7; }
+    </style>
+  </defs>
+
+  <rect width="1280" height="760" rx="24" fill="#fffaf2"/>
+  <text x="56" y="58" class="title">Claude Code 不是一个聊天框，而是一套 Agent Runtime</text>
+  <text x="56" y="88" class="subtitle">模型负责决策，Runtime 负责把决策变成受控、可恢复的真实动作。</text>
+
+  <rect x="56" y="142" width="220" height="126" rx="18" fill="#fff0e7" class="card" filter="url(#shadow)"/>
+  <text x="166" y="185" text-anchor="middle" class="label">用户 / Terminal UI</text>
+  <text x="166" y="217" text-anchor="middle" class="small">输入、流式输出、差异</text>
+  <text x="166" y="242" text-anchor="middle" class="small">确认、中断、状态</text>
+
+  <rect x="352" y="118" width="560" height="300" rx="22" fill="#fff" class="card" filter="url(#shadow)"/>
+  <text x="632" y="158" text-anchor="middle" class="label">Query Runtime</text>
+  <text x="632" y="183" text-anchor="middle" class="tiny">QueryEngine.ts → query.ts / queryLoop()</text>
+
+  <rect x="385" y="213" width="236" height="82" rx="14" fill="#eaf2f4" class="card"/>
+  <text x="503" y="248" text-anchor="middle" class="label">Agent Loop</text>
+  <text x="503" y="274" text-anchor="middle" class="small">调用、观察、继续或结束</text>
+
+  <rect x="644" y="213" width="236" height="82" rx="14" fill="#f4efdf" class="card"/>
+  <text x="762" y="248" text-anchor="middle" class="label">Context</text>
+  <text x="762" y="274" text-anchor="middle" class="small">组装、压缩、恢复</text>
+
+  <rect x="385" y="320" width="236" height="68" rx="14" fill="#f2ebfa" class="card"/>
+  <text x="503" y="349" text-anchor="middle" class="label">Permission</text>
+  <text x="503" y="373" text-anchor="middle" class="small">允许、询问、拒绝</text>
+
+  <rect x="644" y="320" width="236" height="68" rx="14" fill="#edf5ed" class="card"/>
+  <text x="762" y="349" text-anchor="middle" class="label">Task / Agent</text>
+  <text x="762" y="373" text-anchor="middle" class="small">拆分、隔离、汇总</text>
+
+  <rect x="1000" y="142" width="220" height="126" rx="18" fill="#eaf2f4" class="card" filter="url(#shadow)"/>
+  <text x="1110" y="185" text-anchor="middle" class="label">Claude API</text>
+  <text x="1110" y="217" text-anchor="middle" class="small">文本与 Tool Use</text>
+  <text x="1110" y="242" text-anchor="middle" class="small">流式响应</text>
+
+  <rect x="112" y="520" width="248" height="116" rx="18" fill="#f4efdf" class="card" filter="url(#shadow)"/>
+  <text x="236" y="558" text-anchor="middle" class="label">文件与 Shell</text>
+  <text x="236" y="588" text-anchor="middle" class="small">Read · Grep · Edit · Bash</text>
+  <text x="236" y="613" text-anchor="middle" class="small">真实环境反馈</text>
+
+  <rect x="516" y="520" width="248" height="116" rx="18" fill="#f2ebfa" class="card" filter="url(#shadow)"/>
+  <text x="640" y="558" text-anchor="middle" class="label">MCP / LSP / Hooks</text>
+  <text x="640" y="588" text-anchor="middle" class="small">外部能力与生命周期扩展</text>
+  <text x="640" y="613" text-anchor="middle" class="small">仍进入统一工具治理链</text>
+
+  <rect x="920" y="520" width="248" height="116" rx="18" fill="#edf5ed" class="card" filter="url(#shadow)"/>
+  <text x="1044" y="558" text-anchor="middle" class="label">Session Storage</text>
+  <text x="1044" y="588" text-anchor="middle" class="small">事件、摘要、恢复点</text>
+  <text x="1044" y="613" text-anchor="middle" class="small">可追踪、可恢复</text>
+
+  <path d="M276 205H344" class="arrow"/>
+  <path d="M912 205H992" class="arrow"/>
+  <path d="M1000 250C940 250 940 277 888 277" class="arrow dashed"/>
+  <path d="M500 420V510" class="arrow"/>
+  <path d="M632 420V510" class="arrow"/>
+  <path d="M770 420V510" class="arrow"/>
+  <path d="M236 520C236 458 384 458 384 388" class="arrow dashed"/>
+  <path d="M1044 520C1044 455 842 455 842 388" class="arrow dashed"/>
+  <text x="295" y="192" class="tiny">user message</text>
+  <text x="930" y="192" class="tiny">model request</text>
+  <text x="295" y="480" class="tiny">tool call / result</text>
+  <text x="862" y="480" class="tiny">append / resume</text>
+</svg>
