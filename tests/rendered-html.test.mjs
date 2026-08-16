@@ -27,6 +27,7 @@ test("generates a real multi-page HTML blog", async () => {
     "baota-linux-project-deployment.html",
     "claude-code-architecture.html",
     "codex-skills-pr-review.html",
+    "deepseek-harness-plugin-architecture.html",
     "distributed-transactions-seata.html",
     "foundation-architecture.html",
     "heavykeeper-topk.html",

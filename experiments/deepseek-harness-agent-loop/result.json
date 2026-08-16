@@ -1,0 +1,21 @@
+{
+  "factory": "SingleTurnFactory",
+  "defaultLoopLoaded": false,
+  "adapterCalls": 1,
+  "finalText": "deterministic reply: hello plugin loop",
+  "eventTypes": [
+    "agent/inbox/spliced",
+    "turn/start",
+    "agent/inbox/spliced",
+    "step/start",
+    "user/message",
+    "assistant/chunk",
+    "assistant/chunk",
+    "assistant/chunk",
+    "assistant/chunk",
+    "assistant/chunk",
+    "assistant/message",
+    "step/end",
+    "turn/end"
+  ]
+}
